@@ -133,13 +133,13 @@ impl ClientBuilder {
     /// use hdrs::{Client, ClientBuilder};
     ///
     /// let client = ClientBuilder::new("default")
-    ///     .with_config_options(&HashMap::from([
+    ///     .with_config_options(HashMap::from([
     ///         ("hadoop.fs.s3a.aws.credentials.provider".to_string(), "com.amazonaws.auth.DefaultAWSCredentialsProviderChain".to_string()),
     ///         ("fs.azure.account.oauth.provider.type".to_string(), "org.apache.hadoop.fs.azurebfs.oauth2.DefaultAzureCredential".to_string())
     ///     ]))
     ///     .with_user("default").connect();
     /// ```
-    pub fn with_config_options(mut self, conf: &HashMap<String, String>) -> ClientBuilder {
+    pub fn with_config_options(mut self, conf: HashMap<String, String>) -> ClientBuilder {
         self.config_options.extend(conf);
         self
     }
