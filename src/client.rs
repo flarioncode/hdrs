@@ -330,6 +330,10 @@ impl Client {
     ///     .expect("client connect succeed");
     /// let _ = fs.copy_file("/tmp/hello.txt._COPY_", "/tmp/hello.txt");
     /// ```
+    ///
+    /// # Safety
+    /// This is unsafe
+    ///
     pub fn copy_file(&self, old_path: &str, new_path: &str) -> io::Result<()> {
         debug!("copy file {} -> {}", old_path, new_path);
 
