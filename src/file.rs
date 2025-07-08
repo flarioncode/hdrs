@@ -82,6 +82,27 @@ impl File {
         Ok(n)
     }
 
+    // This function only exists in hdfs_3_3 and later versions.
+    // It saves the overhead of reading in loops(the normal read_at will only read ~16kb at a time).
+    #[cfg(feature = "hdfs_3_3")]
+    pub fn read_fully_at(&self, buf: &mut [u8], offset: u64) -> Result<()> {
+        let n = unsafe {
+            hdfsPreadFully(
+                self.fs,
+                self.f,
+                offset as i64,
+                buf.as_ptr() as *mut c_void,
+                buf.len().min(FILE_LIMIT) as i32,
+            )
+        };
+
+        if n == -1 {
+            return Err(Error::last_os_error());
+        }
+
+        Ok(())
+    }
+
     pub fn read_at(&self, buf: &mut [u8], offset: u64) -> Result<usize> {
         let n = unsafe {
             hdfsPread(
