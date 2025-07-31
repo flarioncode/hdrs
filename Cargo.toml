@@ -13,6 +13,7 @@ version = "0.3.2"
 all-features = true
 
 [features]
+default = ["hdfs-sys/hdfs_2_6"]
 async_file = ["dep:futures", "dep:blocking"]
 vendored = ["hdfs-sys/vendored"]
 hdfs_2_6 = ["hdfs-sys/hdfs_2_6"]
@@ -30,7 +31,7 @@ hdfs_3_3 = ["hdfs-sys/hdfs_3_3"]
 blocking = { version = "1.3.0", optional = true }
 errno = "0.3"
 futures = { version = "0.3", optional = true }
-hdfs-sys = "0.3"
+hdfs-sys = { git = "https://github.com/flarioncode/hdfs-sys.git", branch = "flarion", default-features = false }
 libc = "0.2"
 log = "0.4"
 
